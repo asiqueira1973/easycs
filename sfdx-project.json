@@ -1,0 +1,13 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "namespace": "easycs",
+  "name": "Easy CS",
+  "sourceApiVersion": "59.0",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "packageAliases": {}
+}
