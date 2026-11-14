@@ -1,72 +1,55 @@
 # Easy CS
 
-**Solução gratuita de Customer Success para pequenas empresas usando Salesforce.**
+Estrutura simples de Customer Success para pequenas empresas que usam o Salesforce, feita só com recursos nativos da plataforma, sem licenças adicionais nem pacotes pagos.
 
-O Easy CS é um ponto de partida para pequenos times de Customer Success que utilizam o Salesforce como CRM. A solução foi construída de forma simples, usando recursos nativos e customizações básicas, sem depender de licenças adicionais ou pacotes pagos.
+## Principais funcionalidades
 
----
+- Clientes (Account) com layout e página de registro próprios para CS.
+- Engajamentos (`Engagement__c`) ligados ao cliente: data, tipo (Meeting, Training, Onboarding, QBR, Incident Support, Other), status e notas.
+- Tarefas de CS (`CS_Task__c`) dentro de cada engajamento: tipo, prioridade, status, prazo e notas.
+- Time do engajamento (`Engagement_Team__c`) e time da conta (`AccountTeamMember__c`, com papéis como CSM, TAM, Sales, Executive Sponsor).
+- Página inicial "Easy CS", abas, páginas Lightning e layouts de registro.
+- Permission set `Easy_CS_Full_Access`.
+- Manual do usuário em PDF: [`docs/Easy CS – User Manual.pdf`](docs/Easy%20CS%20%E2%80%93%20User%20Manual.pdf).
 
-## 📦 O que está incluído
+## Stack técnica
 
-- Objeto de **Clientes** (Accounts)
-- Objeto de **Engajamentos** relacionados ao cliente
-- Objeto de **Tarefas** dentro de cada engajamento
-- Telas personalizadas, layouts e abas de navegação
-- Relacionamentos pré-configurados
-- Layouts e exemplos de registros
-- Código-fonte completo para instalação e personalização
+- Salesforce Platform: objetos e campos customizados, páginas Lightning (FlexiPages), layouts, abas e permission sets
+- Salesforce DX (projeto `sfdx-project.json`, API 59.0) e Salesforce CLI (`sf`) para deploy
+- Ferramentas de desenvolvimento do template Salesforce DX: ESLint, Prettier (com plugins Apex e XML), Husky + lint-staged e Jest para LWC
 
----
+## Como foi construído
 
-## 🚀 Como instalar
+Projeto Salesforce DX montado a partir do template padrão do Salesforce CLI, com os metadados da org versionados em `force-app/`. Este repositório não tem especificação SDD (spec.md) nem arquivos de configuração do Claude.
 
-Você precisa de uma **Salesforce Developer Edition** (ou sandbox) para testar ou personalizar a solução. Siga os passos:
+- Hook de pre-commit (Husky + lint-staged) que formata os arquivos com Prettier e roda o ESLint nos componentes Aura/LWC.
+- Não há testes automatizados: o Jest para LWC está configurado, mas o projeto não tem componentes LWC nem classes Apex.
 
-### 1. Clone este repositório
+## Status
+
+Em desenvolvimento.
+
+## Licença
+
+O código está disponível apenas para leitura e estudo. Veja [LICENSE](LICENSE).
+
+## Contribuições
+
+Issues são bem-vindas; pull requests não são aceitos. Veja [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Como rodar
+
+Você precisa de uma Salesforce Developer Edition (ou sandbox) e do [Salesforce CLI](https://developer.salesforce.com/tools/salesforcecli).
+
 ```bash
 git clone https://github.com/asiqueira1973/easycs.git
 cd easycs
-
-Faça login na sua org Salesforce
-
-sf org login web --alias MinhaOrg
-
-Use --set-default se quiser defini-la como org padrão.
-
-Faça o deploy do código para a org
-
+sf org login web --alias MinhaOrg          # use --set-default para defini-la como org padrão
 sf project deploy start --target-org MinhaOrg
+```
 
-Aguarde o deploy e, em seguida, acesse sua org para visualizar os objetos e abas criados.
+Depois do deploy, acesse a org para ver os objetos e abas criados.
 
-📘 Manual do Usuário
-Para orientações de uso e exemplos práticos, acesse o PDF abaixo:
-👉 Manual do Easy CS – PDF
-https://github.com/asiqueira1973/easycs/blob/main/docs/Easy%20CS%20%E2%80%93%20User%20Manual.pdf
+---
 
-✨ Sobre este projeto
-Este projeto é uma iniciativa pessoal com o objetivo de contribuir com a comunidade Salesforce, oferecendo uma base simples e reutilizável para operações de Customer Success.
-Não há custos
-
-
-Código aberto (MIT License)
-
-
-Pode ser instalado, adaptado e evoluído livremente
-
-
-
-🤝 Contribuindo
-Fique à vontade para:
-Criar um fork
-
-
-Propor melhorias
-
-
-Adaptar a estrutura para outras áreas (ex: Suporte, Projetos, Implantação)
-
-
-
-📄 Licença
-MIT License. Veja o arquivo LICENSE para mais detalhes.
+Feito pela [Dab Lab](https://www.dablab.com.br/) — agência de inovação no-code para startups e PMEs, com automações usando IA.
