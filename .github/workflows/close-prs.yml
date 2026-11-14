@@ -1,0 +1,23 @@
+name: Fechar pull requests externos
+
+# Este repositório não aceita pull requests (veja CONTRIBUTING.md).
+# pull_request_target roda no contexto do branch padrão; o código do PR
+# nunca é baixado nem executado.
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  fechar:
+    if: github.event.pull_request.user.login != github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comentar e fechar o PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr close "$PR_URL" --comment "Obrigado pelo interesse! Este repositório é uma vitrine e não aceita pull requests, então este PR foi fechado automaticamente. Bugs, dúvidas e sugestões são bem-vindos como issue — veja o CONTRIBUTING.md."
